@@ -1,0 +1,23 @@
+mongoose 默认参数：例子 demo02
+
+
+// 定义user数据表（集合）Schema
+const UserSchema = mongoose.Schema({
+  name: String,
+  age: Number,
+  status: {
+    type: Number,   // 指定类型
+    default: 1          // 指定默认参数
+  }
+});
+
+注意：useNewUrlParser 这个属性会在url里识别验证用户所需的db, 未升级前是不需要指定的，升级后一定要指定。
+{ useNewUrlParser: true }
+例如：
+mongoose.connect("mongodb://127.0.0.1:27017/shop", { useNewUrlParser: true }, (err) => {
+  if (err) {
+    console.log(err)
+    return;
+  }
+  console.log("连接数据库成功！！！");
+});
