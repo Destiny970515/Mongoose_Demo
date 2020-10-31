@@ -1,0 +1,71 @@
+Mongoose 数据校验：
+    用户通过 Mongoose 给 MongoDB 数据库增加数据的时候，对数据的合法性进行的验证
+Mongoose 里面定义Schema: 字段类型，修饰符，默认参数，数据校验都是为了数据库数据的一致性。
+
+Mongoose 内置数据校验方法：
+
+required：表示这个数据必须传入
+max：用于 Number 类型数据，最大值
+min：用于 Number 类型数据，最小值
+enum：枚举类型（用在String类型中），要求数据必须满足枚举值  例如：enum: ['success', 'error']
+match：增加的数据必须符合match（正则）的规则
+maxlength：最大长度 （用在String类型中）
+minlength：最小长度 （用在String类型中）
+
+例子：
+
+// 定义user数据表（集合）Schema
+const UserSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true // 必须传入
+  },
+  age: {
+    type: Number,
+    max: 120, // 用于 Number 类型数据，最大值
+    min: 0    // 用于 Number 类型数据，最小值
+  },
+  status: {
+    type: Number,                // 指定类型
+    default: "success",          // 指定默认参数
+    enum: ["success", "error"]   // 枚举类型校验
+  },
+  sex: {
+    type: String,
+  },
+  sn: {
+    type: Number,
+    maxlength: 16,  // 最大长度
+    minlength: 8,   // 最小长度
+    match: /^sn_[0-9]+$/ // 正则校验
+  }
+});
+
+
+
+Mongoose 自定义数据校验
+
+自定义数据校验，如果通过验证返回true，没有通过则返回 false
+
+例子：
+// 定义user数据表（集合）Schema
+const UserSchema = mongoose.Schema({
+  sex: {
+    type: String,
+    validate: function(desc) {     //自定义数据校验
+      if (!desc) {
+        return false
+      }
+    }
+  },
+});
+
+
+
+
+
+
+
+
+
+

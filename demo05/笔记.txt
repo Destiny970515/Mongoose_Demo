@@ -1,0 +1,110 @@
+Mongoose 索引、
+    索引是对数据库表中一列或多列的值进行排序的一种结构，可以让我们查询数据库变得更快。
+MongoDB 的索引几乎与传统的关系型数据库一模一样，这其中也包括一些基本的查询优化技巧。
+
+Mongoose 中除了以前创建索引的方式，我们也可以在定义 Schema 的时候指定创建索引。
+
+// 定义 Schema 添加索引
+const UserSchema = mongoose.Schema({
+  sn: {
+    type: Number,
+    unique: true  // 唯一索引
+  },
+  sex: {
+    type: String,
+    index: true   // 普通索引
+  }
+});
+
+Mongoose 内置 CURD 方法、
+
+Mongoose 内置 CURD 方 法文档地址：https://mongoosejs.com/docs/queries.html
+
+常用的方法如下：
+
+Model.deleteMany()
+
+Model.deleteOne()
+
+Model.find()
+
+Model.findById()
+
+Model.findByIdAndDelete()
+
+Model.findByIdAndRemove()
+
+Model.findByIdAndUpdate()
+
+Model.findOne()
+
+Model.findOneAndDelete()
+
+Model.findOneAndRemove()
+
+Model.findOneAndUpdate()
+
+Model.replaceOne()
+
+Model.updateMany()
+
+Model.updateOne()
+....
+
+扩展 Mongoose Model 的静态方法 和 实例方法
+
+// 设置静态方法
+UserSchema.statics.findName = function(name, cb) {
+  // 通过 find 方法获取 name 的数据。
+  // this 关键字获取当前的model
+  this.find({"name": name}, (err, doc) =>{
+    cb(err, doc);
+  })
+}
+
+// 调用静态方法
+UserModel.findName("小黄", (err, doc) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log("查找数据成功！！！");
+  console.log(doc);
+})
+
+// 设置实例方法 (基本不用)
+UserSchema.methods.print = function() {
+  console.log("我是实例方法！！！")
+  console.log(this);
+}
+
+// 调用实例方法 需要生成实例对象后先可以调用！！！
+let userAdd = new UserModel({
+  name: "小花",
+  age: 22,
+  status: 1,
+  sex: "女"
+});
+
+userAdd.print();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
