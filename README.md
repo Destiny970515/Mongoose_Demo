@@ -1,2 +1,2 @@
-# Mongoose_Demo 学习Demo&笔记
+# Mongoose_Demo
 Mongoose 学习Demo 笔记
