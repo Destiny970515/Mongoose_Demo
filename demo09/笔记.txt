@@ -1,0 +1,9 @@
+DBRef Populate 实现多个表的关联查询
+
+Populate 可以兼容所有 MongoDB 版本
+aggregate 在 MongoDB 3.2版本之后才可以使用 
+
+要使用 Populate 就要 建立 主键外键的关系
+最后还是 “建议” 使用 “aggregate” 来实现多个表或N个表的关联查询
+
+例子查看：demo09
